@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZUCT-Fellowship Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<style>
+    .content {
+        display: flex;
+        justify-content: center;
+
+    }
+
+    /* The Modal (background) */
+    .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        /* Stay in place */
+        z-index: 1;
+        /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%;
+        /* Full width */
+        height: 100%;
+        /* Full height */
+        overflow-y: 'hidden';
+        /* Enable scroll if needed */
+        background-color: rgba(0, 0, 0, 0.92);
+        /* Black background with opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 3% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 60%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .body{
+        overflow-y: 'hidden';
+    }
+    .controls{
+        width: '100%';
+    }
+</style>
+
+<body onload="hideBody()" class="body">
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class=" text-center">
+                <img src="./zuct logo.png" width="30%" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="controls" align="center">
+            <p>Hello, Welcome to</p>
+            <h3>ZUCT Fellowship Game</h3>
+            
+            <button style="width: 80%;" onclick="gen()" class="btn btn-primary my-3">Start Game</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Button to open the modal -->
+    <!-- <button id="openModalBtn">Open Modal</button> -->
+
+    <div class="content">
+        <div class="card mb-3 my-5" style="max-width: 540px;">
+            <div class="row g-0 ">
+                <div class=" text-center">
+                    <img src="./zuct logo.png" class="img-fluid rounded-start" alt="...">
+                </div>
+                <hr>
+                <h4 class="text-center"><b> Zambia University College of Technology Fellowship Game</b></h4>
+                <hr>
+                <div class="">
+                    <div align="center" class="my-3" width="100%">
+                        <div class="spinner-grow" style="width: 5rem; height: 5rem; display: none; color: green;"
+                            role="status">
+                            <span class="visible px-3"></span>
+                            <p class="py-5">Get Ready!</p>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">Question for: <b><span id="name" class="text-success">John
+                                    Doe</span></b></h5>
+                        <p class="card-text text-center " id="question">This is a wider card with supporting text below
+                            as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <hr>
+                        <button class="btn btn-primary" onclick="gen()">Generate Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     const nameElement = document.querySelector("#name");
+        //     const questionElement = document.querySelector("#question");
+        //     nameElement.innerText = 'bupe';
+        // });
+
+        function hideBody() {
+            const card_body = document.querySelector('.card-body');
+            card_body.style.display = 'none';
+        }
+
+        const questions = [
+            'How do you show Jesus to people who are different than you? What are actual examples from your life?',
+            'What could you do, as a young person, to help improve the life quality of someone in need?',
+            'What is an element you’d like to add to our youth group?',
+            'What is something you wouldn’t post about yourself on social media?',
+            'What is the one thing that motivates you the most everyday?',
+            'What is your biggest fear?',
+            'Why do you think some people bully or attack others? What is their motivation?',
+            'How do you deal with pressure?',
+            'Is there a biblical character you identify with and why?',
+            'Who is your greatest inspiration and why?',
+            'Is it hard to change? Explain why.',
+            'If you could only read one book for the rest of your life (other than the Bible), what would it be?',
+            'What does this world need more of?',
+            'What is something new you tried recently and loved?',
+            'What is something you’re passionate about and want to spend more time doing?',
+            'What would you do if you were not afraid?',
+            'What is your favorite way to spend free time?',
+            'What color do you think of when you think of joy?',
+            'Share a personal example of an answered prayer.',
+            'If you could be in the movie of your choice, what movie would you choose and what character would you play?',
+            'What spiritual gift do you “earnestly desire” (1 Corinthians 14:1)?',
+            'How do you show love to others?',
+            'What is your favorite worship song/hymn?'
+        ];
+
+        const names = [
+            'George',
+            'Wilfred',
+            'Darius',
+            'Caleb',
+            'Joshua',
+            'Faith',
+            'Cosam',
+            'Comfort',
+            'Butemwe',
+            'Luneta',
+            'Joseph',
+            'James',
+            'Owen',
+            'Martin',
+            'John',
+            'Ernest'
+        ];
+
+        function getRandomName(names) {
+            // Generate a random index based on the length of the names array
+            const randomIndex = Math.floor(Math.random() * names.length);
+
+            // Return the name at the randomly generated index
+            return names[randomIndex];
+        }
+
+        function getRandomQuestion(questions) {
+            // Generate a random index based on the length of the names array
+            const randomIndex = Math.floor(Math.random() * questions.length);
+
+            // Return the name at the randomly generated index
+            return questions[randomIndex];
+        }
+        function showSpinner() {
+            // Get a reference to the spinner element
+            const spinner = document.querySelector('.spinner-grow');
+            const card_body = document.querySelector('.card-body');
+            card_body.style.display = 'none';
+            // Set the spinner to be visible
+            spinner.style.display = 'block';
+
+
+            // Hide the spinner after 5 seconds
+            setTimeout(() => {
+                spinner.style.display = 'none';
+                card_body.style.display = 'block';
+            }, 5000);
+        }
+
+
+
+        function gen() {
+            const nameElement = document.querySelector("#name");
+            const questionElement = document.querySelector("#question");
+            const modal = document.getElementById("myModal");
+            const body = document.querySelector('.card-body');
+            modal.style.display = "none";
+            showSpinner();
+            nameElement.innerText = getRandomName(names);
+            questionElement.innerText = getRandomQuestion(questions);
+
+        }
+        function openModal() {
+            hideBody();
+            // Get the modal
+            const modal = document.getElementById("myModal");
+
+            // Get the <span> element that closes the modal
+            const closeBtn = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal
+            modal.style.display = "block";
+
+            // When the user clicks on <span> (x), close the modal
+            closeBtn.onclick = function () {
+                modal.style.display = "none";
+            };
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
+        }
+
+        window.onload = openModal;
+    </script>
+
+</body>
+
+</html>
